@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,11 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ru.wb.debugscreen.R
@@ -55,7 +52,8 @@ fun DebugScreen(
             Text(text = "Clear all")
         }
         LazyColumn(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(defaultPadding)
         ) {
             requests?.value?.reversed()?.forEach {
                 item {
@@ -84,12 +82,13 @@ private fun RequestItem(item: NetworkRequest) {
         )
     ) {
         Row(
-            modifier = Modifier.padding(defaultPadding),
+            modifier = Modifier.padding(defaultPadding).fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Absolute.spacedBy(defaultPadding)
         ) {
             Text(
                 text = item.code.toString(),
+                modifier = Modifier.align(Alignment.Top),
                 color = if (item.isSuccessful) MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.bodyLarge,
@@ -97,16 +96,14 @@ private fun RequestItem(item: NetworkRequest) {
             )
             Text(
                 text = item.url,
+                modifier = Modifier.weight(1f),
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
             )
-//            Spacer(modifier = Modifier.weight(1f))
-//            Icon(
-//                painter = painterResource(id = R.drawable.ic_arrow_drop_down),
-//                contentDescription = null,
-//            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_arrow_drop_down),
+                contentDescription = null,
+            )
         }
     }
 }

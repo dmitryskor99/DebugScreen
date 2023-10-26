@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create
 import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.Query
 import ru.wb.debugscreen.data.DebugInterceptor
 import ru.wb.debugscreen.ui.DebugScreen
 
@@ -71,8 +71,9 @@ interface TestApi {
 //        @Body body: RequestBody = RequestBody.create(null, "erlkjfn")
     ): retrofit2.Response<Unit>
 
-    @POST("api")
+    @GET("api/character")
     suspend fun postRickAndMorty(
+        @Query("page") page: String = "19"
 //        @Header("jkwnfed") hbwekf: String = "7777",
 //        @Body body: RequestBody = RequestBody.create(null, "erlkjfn")
     ): retrofit2.Response<Unit>
