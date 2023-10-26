@@ -6,70 +6,41 @@ import okhttp3.Response
 import okio.Buffer
 import ru.wb.debugscreen.domain.entities.NetworkInfo
 import ru.wb.debugscreen.domain.entities.NetworkRequest
-import java.io.IOException
 
 class DebugInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response = chain.proceed(request)
-//        if (response.isSuccessful) {
-            val requestBody: String = "lekrjfn"
-//            val requestBody: String = try {
-//                val buffer = Buffer()
-//                request.body()?.writeTo(buffer)
-//                buffer.readUtf8()
-//            } catch (e: Exception) {
-//                "Error reading request body!"
-//            }
-        val responseBody: String? = try {
-            response.body()?.string()
+        val requestBody: String = try {
+            val buffer = Buffer()
+            request.body()?.writeTo(buffer)
+            buffer.readUtf8()
         } catch (e: Exception) {
             "Error reading request body!"
         }
-            runBlocking {
-                val url = request.url()
-                NetworkDataBaseService.upsertNetworkRequest(
-                    NetworkRequest(
-                        isSuccessful = response.isSuccessful || response.isRedirect,
-                        url = url.scheme() + "://" + url.host() + url.encodedPath(),
-                        method = request.method(),
-                        code = response.code(),
-                        request = NetworkInfo(
-                            header = request.headers().toMultimap(), body = requestBody
-                        ),
-                        response = NetworkInfo(
-                            header = response.headers().toMultimap(),
-                            body = responseBody
-                        )
+        val responseBody: String? = try {
+            response.peekBody(Long.MAX_VALUE).string()
+        } catch (e: Exception) {
+            "Error reading response body!"
+        }
+        runBlocking {
+            val url = request.url()
+            NetworkDataBaseService.upsertNetworkRequest(
+                NetworkRequest(
+                    isSuccessful = response.isSuccessful || response.isRedirect,
+                    url = url.scheme() + "://" + url.host() + url.encodedPath(),
+                    method = request.method(),
+                    code = response.code(),
+                    request = NetworkInfo(
+                        header = request.headers().toMultimap(), body = requestBody
+                    ),
+                    response = NetworkInfo(
+                        header = response.headers().toMultimap(),
+                        body = responseBody
                     )
                 )
-            }
-//        } else {
-//            val requestBody: String = try {
-//                val buffer = Buffer()
-//                request.body()?.writeTo(buffer)
-//                buffer.readUtf8()
-//            } catch (e: IOException) {
-//                "IO error reading request body!"
-//            }
-//            runBlocking {
-//                val url = request.url()
-//                NetworkDataBaseService.upsertNetworkRequest(
-//                    NetworkRequest(
-//                        url = url.scheme() + "://" + url.host() + url.encodedPath(),
-//                        method = request.method(),
-//                        code = response.code(),
-//                        request = NetworkInfo(
-//                            header = request.headers().toMultimap(), body = requestBody
-//                        ),
-//                        response = NetworkInfo(
-//                            header = response.headers().toMultimap(),
-//                            body = response.body()?.string()
-//                        )
-//                    )
-//                )
-//            }
-//        }
+            )
+        }
         return response
     }
 }
