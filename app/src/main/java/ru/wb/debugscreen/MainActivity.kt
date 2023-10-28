@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.wb.debugscreen.data.DebugInterceptor
+import ru.wb.debugscreen.interseptors.DebugInterceptor
 import ru.wb.debugscreen.ui.DebugScreen
 
 class MainActivity : ComponentActivity() {
