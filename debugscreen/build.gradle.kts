@@ -1,3 +1,9 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+}
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -7,7 +13,7 @@ plugins {
 
 android {
     namespace = "ru.wb.debugscreen"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
@@ -31,8 +37,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
@@ -44,30 +50,17 @@ android {
         compose = true
     }
 }
-//
-//java {
-//    toolchain {
-//        languageVersion = JavaLanguageVersion.of(11)
-//    }
-//}
-
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
 
 dependencies {
 
-    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.compose.material3:material3-android:1.2.0-alpha10")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     implementation("com.google.code.gson:gson:2.10.1")
 
-    implementation("androidx.room:room-ktx:2.4.1")
-//    implementation("androidx.room:room-runtime:2.4.1")
-    ksp("androidx.room:room-compiler:2.4.1")
+    implementation("androidx.room:room-ktx:2.6.0")
+    ksp("androidx.room:room-compiler:2.6.0")
 }
 
 afterEvaluate {
