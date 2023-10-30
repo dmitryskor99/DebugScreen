@@ -44,7 +44,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import kotlinx.coroutines.launch
@@ -356,12 +355,6 @@ private fun ColumnScope.TextEmpty(text: String) {
         style = MaterialTheme.typography.bodyLarge
     )
     Spacer(modifier = Modifier.weight(1f))
-}
-
-@Preview
-@Composable
-fun DebugScreenPreview() {
-    DebugScreen()
 }
 
 private val defaultPadding = 8.dp

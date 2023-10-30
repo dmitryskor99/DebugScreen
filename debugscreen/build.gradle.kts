@@ -1,7 +1,20 @@
+//buildscript {
+//    repositories {
+//        google()
+//        mavenCentral()
+//        mavenLocal()
+//    }
+//
+//    dependencies {
+//
+//    }
+//}
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("maven-publish")
 }
 
 android {
@@ -22,6 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            consumerProguardFiles("consumer-rules.pro")
         }
     }
     compileOptions {
@@ -39,11 +53,20 @@ android {
     }
 }
 
+java {
+    toolchain {
+        version = JavaLanguageVersion.of(17)
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 dependencies {
 
     implementation("androidx.compose.material3:material3-android:1.2.0-alpha10")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.5.4")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
@@ -51,11 +74,17 @@ dependencies {
 
     implementation("androidx.room:room-ktx:2.6.0")
     ksp("androidx.room:room-compiler:2.6.0")
+}
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+afterEvaluate {
+    publishing {
+        publications
+            .create<MavenPublication>("DebugScreenRelease") {
+                from(components["release"])
+
+                groupId = "com.github.dmitryskor99"
+                artifactId = "debugscreen"
+                version = "1.0.0"
+            }
+    }
 }
