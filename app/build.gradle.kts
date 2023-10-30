@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "ru.wb.debugscreen"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "ru.wb.debugscreen"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -48,17 +48,15 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.material3:material3-android:1.2.0-alpha10")
-    implementation("androidx.activity:activity-compose:1.8.0")
-
-    implementation("androidx.room:room-ktx:2.6.0")
-    ksp("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.activity:activity-ktx:1.7.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+//    implementation("com.google.android.material:material:1.10.0")
     implementation(project(mapOf("path" to ":debugscreen")))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

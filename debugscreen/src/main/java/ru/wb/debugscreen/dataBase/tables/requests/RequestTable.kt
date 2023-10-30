@@ -11,27 +11,27 @@ import java.util.Date
 )
 data class RequestTable(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo("id")
+    @ColumnInfo(name = "id")
     val id: Long = 0,
-    @ColumnInfo("is_successful")
+    @ColumnInfo(name = "is_successful")
     val isSuccessful: Boolean,
-    @ColumnInfo("time_send")
+    @ColumnInfo(name = "time_send")
     val timeSend: Date,
-    @ColumnInfo("time_received")
+    @ColumnInfo(name = "time_received")
     val timeReceived: Long,
-    @ColumnInfo("scheme")
+    @ColumnInfo(name = "scheme")
     val scheme: String,
-    @ColumnInfo("host")
+    @ColumnInfo(name = "host")
     val host: String,
-    @ColumnInfo("path")
+    @ColumnInfo(name = "path")
     val path: String,
-    @ColumnInfo("code_request")
+    @ColumnInfo(name = "code_request")
     val codeRequest: Int,
-    @ColumnInfo("method")
+    @ColumnInfo(name = "method")
     val method: String,
-    @ColumnInfo("request_body")
+    @ColumnInfo(name = "request_body")
     val requestBody: String? = null,
-    @ColumnInfo("response_body")
+    @ColumnInfo(name = "response_body")
     val responseBody: String? = null
 ) {
     companion object {

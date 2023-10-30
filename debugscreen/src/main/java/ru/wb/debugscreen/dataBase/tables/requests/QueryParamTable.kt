@@ -19,13 +19,13 @@ import androidx.room.PrimaryKey
 )
 data class QueryParamTable(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo("id")
+    @ColumnInfo(name = "id")
     val id: Long = 0,
-    @ColumnInfo("request_id")
+    @ColumnInfo(name = "request_id")
     val requestId: Long,
-    @ColumnInfo("name")
+    @ColumnInfo(name = "name")
     val name: String,
-    @ColumnInfo("value")
+    @ColumnInfo(name = "value")
     val value: String? = null
 ) {
     companion object {

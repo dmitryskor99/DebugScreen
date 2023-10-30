@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "ru.wb.debugscreen"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
@@ -47,14 +47,15 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.material3:material3-android:1.2.0-alpha10")
+    implementation("androidx.compose.material3:material3:1.1.2")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     implementation("com.google.code.gson:gson:2.10.1")
 
-    implementation("androidx.room:room-ktx:2.6.0")
-    ksp("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.room:room-ktx:2.4.1")
+//    implementation("androidx.room:room-runtime:2.4.1")
+    ksp("androidx.room:room-compiler:2.4.1")
 }
 
 afterEvaluate {
