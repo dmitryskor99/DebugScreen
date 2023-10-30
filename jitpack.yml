@@ -1,0 +1,7 @@
+jdk:
+  - openjdk 17
+before_install:
+  - ./scripts/prepareJitpackEnvironment.sh
+install:
+  - FILE="Dfile=debugscreen-release.aar"
+  - mvn install:install-file $FILE -DgroupId=com.github.dmitryskor99 -DartifactId=DebugScreen -Dversion=1.0 -Dpacking=aar -DgeneratePom=true

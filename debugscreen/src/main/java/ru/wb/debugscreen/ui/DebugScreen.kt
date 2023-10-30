@@ -1,5 +1,6 @@
 package ru.wb.debugscreen.ui
 
+import android.view.View
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -7,6 +8,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -39,9 +41,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import kotlinx.coroutines.launch
 import ru.wb.debugscreen.R
 import ru.wb.debugscreen.RequestDataBaseService
@@ -49,9 +54,33 @@ import ru.wb.debugscreen.domain.entities.NetworkInfo
 import ru.wb.debugscreen.domain.entities.NetworkRequest
 import ru.wb.debugscreen.utils.getColorMethodNetwork
 
+fun View.debugScreen(overflowContent: View? = null): View {
+    return findViewById<ComposeView>(R.id.compose_view).apply {
+        setContent {
+            DebugScreen(
+                overflowContent = overflowContent?.let {
+                    {
+                        AndroidView(factory = { overflowContent })
+                    }
+                }
+            )
+        }
+    }
+}
+
+fun View.debugScreen(overflowContent: @Composable (BoxScope.() -> Unit)? = null): View {
+    return findViewById<ComposeView>(R.id.compose_view).apply {
+        setContent {
+            DebugScreen(
+                overflowContent = overflowContent
+            )
+        }
+    }
+}
+
 @Composable
 fun DebugScreen(
-    overflowContent: @Composable (() -> Unit)? = null
+    overflowContent: @Composable (BoxScope.() -> Unit)? = null
 ) {
     val scope = rememberCoroutineScope()
     val requests =
@@ -61,7 +90,7 @@ fun DebugScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
-            overflowContent?.invoke()
+            overflowContent?.invoke(this)
         }
         Row(
             modifier = Modifier
@@ -327,6 +356,12 @@ private fun ColumnScope.TextEmpty(text: String) {
         style = MaterialTheme.typography.bodyLarge
     )
     Spacer(modifier = Modifier.weight(1f))
+}
+
+@Preview
+@Composable
+fun DebugScreenPreview() {
+    DebugScreen()
 }
 
 private val defaultPadding = 8.dp

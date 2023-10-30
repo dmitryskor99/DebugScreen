@@ -1,8 +1,8 @@
 package ru.wb.debugscreen
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
@@ -17,15 +17,14 @@ import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.wb.debugscreen.interseptors.DebugInterceptor
-import ru.wb.debugscreen.ui.DebugScreen
+import ru.wb.debugscreen.ui.debugScreen
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            DebugScreen {
-                TestRequest()
-            }
+        setContentView(R.layout.debug_view)
+        findViewById<View>(R.id.compose_view).debugScreen {
+            TestRequest()
         }
     }
 }
@@ -38,9 +37,10 @@ private fun TestRequest() {
         Button(
             onClick = {
                 scope.launch {
-                    val api: TestApi = Retrofit.Builder().baseUrl("https://rickandmortyapi.com").client(
-                        OkHttpClient.Builder().addInterceptor(DebugInterceptor()).build()
-                    ).build().create()
+                    val api: TestApi =
+                        Retrofit.Builder().baseUrl("https://rickandmortyapi.com").client(
+                            OkHttpClient.Builder().addInterceptor(DebugInterceptor()).build()
+                        ).build().create()
                     api.rickAndMorty()
                 }
             },
@@ -51,9 +51,10 @@ private fun TestRequest() {
         Button(
             onClick = {
                 scope.launch {
-                    val api: TestApi = Retrofit.Builder().baseUrl("https://rickandmortyapi.com").client(
-                        OkHttpClient.Builder().addInterceptor(DebugInterceptor()).build()
-                    ).build().create()
+                    val api: TestApi =
+                        Retrofit.Builder().baseUrl("https://rickandmortyapi.com").client(
+                            OkHttpClient.Builder().addInterceptor(DebugInterceptor()).build()
+                        ).build().create()
                     api.postRickAndMorty()
                 }
             },

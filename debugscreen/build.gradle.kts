@@ -42,6 +42,8 @@ android {
 dependencies {
 
     implementation("androidx.compose.material3:material3-android:1.2.0-alpha10")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.5.4")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
