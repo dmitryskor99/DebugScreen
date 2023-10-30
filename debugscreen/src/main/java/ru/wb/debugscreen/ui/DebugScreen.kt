@@ -68,18 +68,15 @@ fun DebugScreen(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            IconButton(
-                onClick = {
-//            scope.launch { NetworkDataBaseService.deleteAll() }
-                },
-
-                ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_share),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
+//            IconButton(
+//                onClick = {}
+//            ) {
+//                Icon(
+//                    painter = painterResource(id = R.drawable.ic_share),
+//                    contentDescription = null,
+//                    tint = MaterialTheme.colorScheme.primary
+//                )
+//            }
             IconButton(
                 onClick = {
                     scope.launch { RequestDataBaseService.deleteAll() }
