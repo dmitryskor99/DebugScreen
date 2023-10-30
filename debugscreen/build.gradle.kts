@@ -53,7 +53,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.material3:material3-android:1.2.0-alpha10")
+    implementation("androidx.compose.material3:material3:1.2.0-alpha10")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
@@ -68,7 +68,7 @@ afterEvaluate {
         publications.create<MavenPublication>("DebugScreenRelease") {
             groupId = "com.github.dmitryskor99"
             artifactId = "debugscreen"
-            version = "1.0.0"
+            version = "1.0.1"
 
             from(components["release"])
         }
