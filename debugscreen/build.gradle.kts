@@ -1,15 +1,3 @@
-//buildscript {
-//    repositories {
-//        google()
-//        mavenCentral()
-//        mavenLocal()
-//    }
-//
-//    dependencies {
-//
-//    }
-//}
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -28,6 +16,11 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+        arg("room.incremental", "true")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -35,7 +28,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            consumerProguardFiles("consumer-rules.pro")
         }
     }
     compileOptions {
@@ -53,17 +45,6 @@ android {
     }
 }
 
-java {
-    toolchain {
-        version = JavaLanguageVersion.of(17)
-    }
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 dependencies {
 
     implementation("androidx.compose.material3:material3-android:1.2.0-alpha10")
@@ -78,13 +59,12 @@ dependencies {
 
 afterEvaluate {
     publishing {
-        publications
-            .create<MavenPublication>("DebugScreenRelease") {
-                groupId = "com.github.dmitryskor99"
-                artifactId = "debugscreen"
-                version = "1.0.0"
+        publications.create<MavenPublication>("DebugScreenRelease") {
+            groupId = "com.github.dmitryskor99"
+            artifactId = "debugscreen"
+            version = "1.0.0"
 
-                from(components["release"])
-            }
+            from(components["release"])
+        }
     }
 }
