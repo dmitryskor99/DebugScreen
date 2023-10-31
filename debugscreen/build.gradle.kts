@@ -66,11 +66,11 @@ dependencies {
 afterEvaluate {
     publishing {
         publications.create<MavenPublication>("DebugScreenRelease") {
+            from(components["release"])
+
             groupId = "com.github.dmitryskor99"
             artifactId = "debugscreen"
             version = "1.0.1"
-
-            from(components["release"])
         }
     }
 }
