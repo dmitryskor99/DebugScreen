@@ -1,6 +1,6 @@
-#jdk:
-#  - openjdk 17
-before_install:
-  - sdk install java 11.0.10-open
-  - sdk use java 11.0.10-open
-  - ./scripts/prepareJitpackEnvironment.sh
+jdk:
+  - openjdk11
+#before_install:
+#  - sdk install java 11.0.10-open
+#  - sdk use java 11.0.10-open
+#  - ./scripts/prepareJitpackEnvironment.sh
