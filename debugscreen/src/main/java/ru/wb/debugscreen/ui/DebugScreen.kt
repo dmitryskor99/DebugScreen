@@ -30,6 +30,7 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import kotlinx.coroutines.launch
 import ru.wb.debugscreen.R
+import ru.wb.debugscreen.RequestDataBaseService
 import ru.wb.debugscreen.domain.entities.NetworkInfo
 import ru.wb.debugscreen.domain.entities.NetworkRequest
 import ru.wb.debugscreen.utils.getColorMethodNetwork
@@ -80,8 +82,8 @@ fun DebugScreen(
     overflowContent: @Composable (BoxScope.() -> Unit)? = null
 ) {
     val scope = rememberCoroutineScope()
-//    val requests =
-//        RequestDataBaseService.getRequests().collectAsState(initial = emptyList())
+    val requests =
+        RequestDataBaseService.getRequests().collectAsState(initial = emptyList())
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -106,7 +108,7 @@ fun DebugScreen(
             IconButton(
                 onClick = {
                     scope.launch {
-//                        RequestDataBaseService.deleteAll()
+                        RequestDataBaseService.deleteAll()
                     }
                 },
 
@@ -122,11 +124,11 @@ fun DebugScreen(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(defaultPadding)
         ) {
-//            requests.value.reversed().forEachIndexed { index, request ->
-//                item(key = index) {
-//                    RequestItem(request)
-//                }
-//            }
+            requests.value.reversed().forEachIndexed { index, request ->
+                item(key = index) {
+                    RequestItem(request)
+                }
+            }
         }
     }
 }

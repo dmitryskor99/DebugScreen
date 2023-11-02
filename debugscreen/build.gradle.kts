@@ -7,7 +7,7 @@ buildscript {
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-//    id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp")
     id("maven-publish")
 }
 
@@ -21,11 +21,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-//
-//    ksp {
-//        arg("room.schemaLocation", "$projectDir/schemas")
-//        arg("room.incremental", "true")
-//    }
+
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+        arg("room.incremental", "true")
+    }
 
     buildTypes {
         release {
@@ -59,8 +59,8 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.10.1")
 
-//    implementation("androidx.room:room-ktx:2.6.0")
-//    ksp("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    ksp("androidx.room:room-compiler:2.6.0")
 }
 
 afterEvaluate {
